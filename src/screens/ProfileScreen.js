@@ -29,7 +29,7 @@ export default function ProfileScreen() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
+  const [, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   })
 
@@ -87,6 +87,7 @@ export default function ProfileScreen() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
@@ -94,6 +95,7 @@ export default function ProfileScreen() {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
+            value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
