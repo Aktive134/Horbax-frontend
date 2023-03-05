@@ -2,8 +2,9 @@ import { useEffect, useReducer } from 'react'
 import axios from 'axios'
 import logger from 'use-reducer-logger'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { Product, LoadingBox, MessageBox } from '../components'
+// import Col from 'react-bootstrap/Col'
+import { LoadingBox, MessageBox } from '../components'
+// import { Product, LoadingBox, MessageBox } from '../components'
 import { Helmet } from 'react-helmet-async'
 
 const reducer = (state, action) => {
@@ -20,11 +21,16 @@ const reducer = (state, action) => {
 }
 
 function HomeScreen() {
-  const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
     error: '',
   })
+  // const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
+  //   products: [],
+  //   loading: true,
+  //   error: '',
+  // })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,11 +58,11 @@ function HomeScreen() {
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
-            {products?.map((product) => (
+            {/* {products?.map((product) => (
               <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
                 <Product product={product}></Product>
               </Col>
-            ))}
+            ))} */}
           </Row>
         )}
       </div>
