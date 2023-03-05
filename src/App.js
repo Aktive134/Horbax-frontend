@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -7,7 +7,7 @@ import Badge from 'react-bootstrap/Badge'
 import Container from 'react-bootstrap/Container'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { LinkContainer } from 'react-router-bootstrap'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { Store } from './Store'
 import {
   HomeScreen,
@@ -29,8 +29,8 @@ import {
 } from './screens'
 import { SearchBox, ProtectedRoute, AdminRoute } from './components'
 import Button from 'react-bootstrap/Button'
-import { getError } from './utils'
-import axios from 'axios'
+// import { getError } from './utils'
+// import axios from 'axios'
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store)
@@ -43,19 +43,19 @@ function App() {
     window.location.href = '/signin'
   }
   const [sideBarIsOpen, setSideBarIsOpen] = useState(false)
-  const [categories, setCategories] = useState([])
+  // const [categories, setCategories] = useState([])
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get(`/products/categories`)
-        setCategories(data)
-      } catch (err) {
-        toast.error(getError(err))
-      }
-    }
-    fetchCategories()
-  }, [])
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/products/categories`)
+  //       // setCategories(data)
+  //     } catch (err) {
+  //       toast.error(getError(err))
+  //     }
+  //   }
+  //   fetchCategories()
+  // }, [])
 
   return (
     <BrowserRouter>
@@ -145,7 +145,7 @@ function App() {
             <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
-            {categories?.map((category) => (
+            {/* {categories?.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
                   to={{ pathname: '/search', search: `category=${category}` }}
@@ -154,7 +154,7 @@ function App() {
                   <Nav.Link>{category}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
-            ))}
+            ))} */}
           </Nav>
         </div>
         <main>
