@@ -22,7 +22,7 @@ const reducer = (state, action) => {
 }
 
 export default function ProfileScreen() {
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch: ctxDispatch, url } = useContext(Store)
   const { userInfo } = state
   const [name, setName] = useState(userInfo.name)
   const [email, setEmail] = useState(userInfo.email)
@@ -37,7 +37,7 @@ export default function ProfileScreen() {
     e.preventDefault()
     try {
       const { data } = await axios.put(
-        '/users/profile',
+        `${url}/users/profile`,
         {
           name,
           email,

@@ -32,7 +32,7 @@ export default function PlaceOrderScreen() {
     loading: false,
   })
 
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch: ctxDispatch, url } = useContext(Store)
   const { cart, userInfo } = state
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100 //135.3445 => 135.34
@@ -46,7 +46,7 @@ export default function PlaceOrderScreen() {
       try {
           dispatch({ type: "CREATE_REQUEST"})
 
-          const { data } = await axios.post("/orders", {
+          const { data } = await axios.post(`${url}/orders`, {
               orderItems: cart.cartItems,
               shippingAddress: cart.shippingAddress,
               paymentMethod: cart.paymentMethod,

@@ -1,4 +1,5 @@
-import React, { useReducer, useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useReducer, useEffect, useState, useContext } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -12,6 +13,7 @@ import MessageBox from '../components/MessageBox'
 import Button from 'react-bootstrap/Button'
 import Product from '../components/Product'
 import LinkContainer from 'react-router-bootstrap/LinkContainer'
+import { Store } from '../Store'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -36,7 +38,9 @@ const reducer = (state, action) => {
 
 export default function SearchScreen() {
   const navigate = useNavigate()
+  const { url } = useContext(Store)
   const { search } = useLocation()
+
 
   const sp = new URLSearchParams(search)
 
@@ -58,7 +62,7 @@ export default function SearchScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get('/products/search', {
+        const { data } = await axios.get(`${url}/products/search`, {
           params: {
             page: page,
             query: query,
@@ -84,7 +88,7 @@ export default function SearchScreen() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get('/products/categories')
+        const { data } = await axios.get(`${url}/products/categories`)
         setCategories(data)
       } catch (err) {
         toast.error(getError(err))

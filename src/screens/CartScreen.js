@@ -12,13 +12,13 @@ import Button from 'react-bootstrap/Button'
 
 export default function CartScreen() {
   const navigate = useNavigate();  
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch: ctxDispatch, url } = useContext(Store)
   const {
     cart: { cartItems },
   } = state
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/products/${item._id}`)
+    const { data } = await axios.get(`${url}/products/${item._id}`)
     if(data.countInStock < quantity) {
         window.alert('Sorry, product is out of stock')
         return

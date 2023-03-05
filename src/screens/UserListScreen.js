@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import React, { useContext, useEffect, useReducer } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -29,14 +30,14 @@ export default function UserListScreen() {
     error: '',
   })
 
-  const { state } = useContext(Store)
+  const { state, url } = useContext(Store)
   const { userInfo } = state
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
-        const { data } = await axios.get(`/users`, {
+        const { data } = await axios.get(`${url}/users`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         })
         dispatch({ type: 'FETCH_SUCCESS', payload: data })

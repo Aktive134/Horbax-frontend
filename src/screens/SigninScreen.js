@@ -17,13 +17,13 @@ export default function SigninScreen() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch: ctxDispatch, url } = useContext(Store)
   const { userInfo } = state;
 
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.post('/signin', {
+      const { data } = await axios.post(`${url}/signin`, {
         email,
         password,
       })

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useReducer } from 'react'
 import Chart from 'react-google-charts'
 import axios from 'axios'
@@ -31,13 +32,13 @@ export default function DashboardScreen() {
     loading: true,
     error: '',
   })
-  const { state } = useContext(Store)
+  const { state, url } = useContext(Store)
   const { userInfo } = state
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get('/orders/summary', {
+        const { data } = await axios.get(`${url}/orders/summary`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         })
         dispatch({ type: 'FETCH_SUCCESS', payload: data })

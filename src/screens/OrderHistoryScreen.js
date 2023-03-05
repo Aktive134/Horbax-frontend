@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -21,7 +22,7 @@ const reducer = (state, action) => {
 }
 
 export default function OrderHistoryScreen() {
-  const { state } = useContext(Store)
+  const { state, url } = useContext(Store)
   const { userInfo } = state
   const navigate = useNavigate()
 
@@ -35,7 +36,7 @@ export default function OrderHistoryScreen() {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         const { data } = await axios.get(
-          `/orders/mine`,
+          `${url}/orders/mine`,
 
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );

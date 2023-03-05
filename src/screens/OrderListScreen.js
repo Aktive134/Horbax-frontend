@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import React, { useContext, useEffect, useReducer } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -27,7 +28,7 @@ const reducer = (state, action) => {
 
 export default function OrderListScreen() {
 //   const navigate = useNavigate()
-  const { state } = useContext(Store)
+  const { state, url } = useContext(Store)
   const { userInfo } = state
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -38,7 +39,7 @@ export default function OrderListScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
-        const { data } = await axios.get(`/orders`, {
+        const { data } = await axios.get(`${url}/orders`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         })
         dispatch({ type: 'FETCH_SUCCESS', payload: data })

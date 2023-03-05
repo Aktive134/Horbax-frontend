@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import { Link, useLocation } from 'react-router-dom'
@@ -35,13 +36,13 @@ export default function ProductListScreen() {
   const sp = new URLSearchParams(search)
   const page = sp.get('page') || 1
 
-  const { state } = useContext(Store)
+  const { state, url } = useContext(Store)
   const { userInfo } = state
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/products/admin?page=${page} `, {
+        const { data } = await axios.get(`${url}/products/admin?page=${page} `, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         })
 

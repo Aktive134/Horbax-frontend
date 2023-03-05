@@ -9,7 +9,7 @@ import { Store } from '../Store'
 function Product(props) {
   const { product } = props
 
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch: ctxDispatch, url } = useContext(Store)
   const {
     cart: { cartItems },
   } = state
@@ -17,7 +17,7 @@ function Product(props) {
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1
-    const { data } = await axios.get(`/products/${item._id}`)
+    const { data } = await axios.get(`${url}/products/${item._id}`)
     if (data.countInStock < quantity) {
       window.alert('Sorry, product is out of stock')
       return

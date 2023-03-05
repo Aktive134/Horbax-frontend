@@ -19,7 +19,7 @@ export default function SignupScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch: ctxDispatch, url } = useContext(Store)
   const { userInfo } = state
 
   const submitHandler = async (e) => {
@@ -29,7 +29,7 @@ export default function SignupScreen() {
       return
     }
     try {
-      const { data } = await axios.post('/signup', {
+      const { data } = await axios.post(`${url}/signup`, {
         name,
         email,
         password,

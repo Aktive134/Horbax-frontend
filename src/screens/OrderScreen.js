@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useReducer } from 'react'
 import axios from 'axios'
 import { getError } from '../utils'
@@ -35,7 +36,7 @@ function reducer(state, action) {
 }
 
 export default function OrderScreen() {
-  const { state } = useContext(Store)
+  const { state, url } = useContext(Store)
   const { userInfo } = state
 
   const params = useParams()
@@ -70,7 +71,7 @@ export default function OrderScreen() {
     return actions.order.capture().then(async function (details) {
       try {
         dispatch({ type: 'PAY_REQUEST' })
-        const { data } = await axios.put(`/orders/${order._id}/pay`, details, {
+        const { data } = await axios.put(`${url}/orders/${order._id}/pay`, details, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         })
         dispatch({ type: 'PAY_SUCCESS', payload: data })
@@ -90,7 +91,7 @@ export default function OrderScreen() {
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
-        const { data } = await axios.get(`/orders/${orderId}`, {
+        const { data } = await axios.get(`${url}/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         })
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
@@ -109,7 +110,7 @@ export default function OrderScreen() {
       }
     } else {
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get('/api/keys/paypal', {
+        const { data: clientId } = await axios.get(`${url}/api/keys/paypal`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         })
         paypalDispatch({
